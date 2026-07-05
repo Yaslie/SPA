@@ -4,6 +4,12 @@ Proyecto final hecho con Angular 20 para consultar paises desde la API publica d
 REST Countries. La app usa rutas hijas, rutas anidadas, lazy loading, Tailwind CSS,
 DaisyUI, RxJS, cache y PWA.
 
+## Enlaces
+
+- Aplicacion desplegada como PWA: https://yaslie.github.io/SPA/
+- Repositorio: https://github.com/Yaslie/SPA
+- Workflow de despliegue: `.github/workflows/deploy-pages.yml`
+
 ## Funcionalidades
 
 - Busqueda de paises por nombre.
@@ -31,13 +37,13 @@ DaisyUI, RxJS, cache y PWA.
 
 ## Rutas principales
 
-- `/countries/home`
-- `/countries/by-country?q=mexico`
-- `/countries/by-capital?q=madrid`
-- `/countries/by-region?region=americas`
-- `/countries/country/MEX`
-- `/countries/favorites`
-- `/countries/favorites/help`
+- `https://yaslie.github.io/SPA/countries/home`
+- `https://yaslie.github.io/SPA/countries/by-country?q=mexico`
+- `https://yaslie.github.io/SPA/countries/by-capital?q=madrid`
+- `https://yaslie.github.io/SPA/countries/by-region?region=americas`
+- `https://yaslie.github.io/SPA/countries/country/MEX`
+- `https://yaslie.github.io/SPA/countries/favorites`
+- `https://yaslie.github.io/SPA/countries/favorites/help`
 
 ## Comandos
 
@@ -77,6 +83,10 @@ REST Countries v5 requiere API key para consultar datos reales desde frontend. L
 intenta consumir esa API y, si no hay credenciales o el navegador bloquea la peticion,
 usa el JSON local de respaldo.
 
+El respaldo local esta en `public/data/countries.json`. En el servicio se carga con
+la ruta relativa `data/countries.json` para que funcione en GitHub Pages, donde la app
+se publica dentro de `/SPA/`.
+
 Para probar con una key real, se puede guardar en el navegador:
 
 ```js
@@ -115,3 +125,7 @@ https://yaslie.github.io/SPA/
 El workflow compila Angular con `--base-href /SPA/`, publica la carpeta
 `dist/country-spa/browser` y copia `index.html` como `404.html` para conservar las
 rutas internas de la SPA.
+
+Si despues de un despliegue Chrome muestra una version anterior, puede ser por el
+cache del service worker de la PWA. Se puede actualizar con `Ctrl + F5`, cerrando y
+abriendo de nuevo la app, o desde DevTools > Application > Service Workers.
