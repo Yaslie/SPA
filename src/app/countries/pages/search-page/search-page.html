@@ -1,0 +1,55 @@
+<section class="space-y-6">
+  <div class="grid gap-4 lg:grid-cols-[1fr_18rem] lg:items-end">
+    <div>
+      <h1 class="section-title">{{ title() }}</h1>
+      <p class="muted-text">
+        La busqueda se guarda en la URL con query params y espera un momento antes de consultar.
+      </p>
+    </div>
+
+    @if (countriesService.recentSearches().length > 0) {
+      <div class="rounded-lg border border-base-300 bg-white p-4 shadow-sm">
+        <p class="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500">Recientes</p>
+        <div class="flex flex-wrap gap-2">
+          @for (recent of countriesService.recentSearches(); track recent) {
+            <button class="badge badge-outline" type="button" (click)="onSearch(recent)">
+              {{ recent }}
+            </button>
+          }
+        </div>
+      </div>
+    }
+  </div>
+
+  <app-search-box
+    [label]="mode() === 'capital' ? 'Capital' : 'Pais'"
+    [placeholder]="placeholder()"
+    [value]="term()"
+    [disabled]="countriesService.loading()"
+    (search)="onSearch($event)"
+  />
+
+  <div class="flex flex-wrap gap-2">
+    @for (example of examples(); track example) {
+      <button type="button" class="btn btn-outline btn-sm" (click)="onSearch(example)">
+        {{ example }}
+      </button>
+    }
+  </div>
+
+  @if (countriesService.errorMessage(); as message) {
+    <div class="alert alert-warning">
+      <span>{{ message }}</span>
+    </div>
+  }
+
+  <app-country-list
+    [countries]="countries()"
+    [loading]="countriesService.loading()"
+    [favoriteCodes]="countriesService.favoriteCodes()"
+    [emptyMessage]="
+      term().length < 2 ? 'Escribe al menos dos letras para buscar.' : 'No hay resultados.'
+    "
+    (favoriteToggled)="toggleFavorite($event)"
+  />
+</section>

@@ -1,59 +1,102 @@
-# CountrySpa
+# Country SPA
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.31.
+Proyecto final hecho con Angular 20 para consultar paises desde la API publica de
+REST Countries. La app usa rutas hijas, rutas anidadas, lazy loading, Tailwind CSS,
+DaisyUI, RxJS, cache y PWA.
 
-## Development server
+## Funcionalidades
 
-To start a local development server, run:
+- Busqueda de paises por nombre.
+- Busqueda por capital.
+- Filtro por region usando query parameters.
+- Vista de detalle por codigo de pais.
+- Favoritos guardados en `localStorage`.
+- Busquedas recientes guardadas en el navegador.
+- Cache en peticiones HTTP para evitar repetir llamadas iguales.
+- Respaldo local en `public/data/countries.json` para que la demo funcione sin API key.
+- Pantalla de favoritos con ruta hija `/countries/favorites/help`.
+- Aplicacion configurada como PWA con manifest y service worker.
 
-```bash
-ng serve
-```
+## Temas aplicados de la practica
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Rutas hijas y anidadas en `src/app/countries/countries-routing-module.ts`.
+- Carga perezosa del modulo `CountriesModule` desde `src/app/app-routing-module.ts`.
+- Componentes reutilizables con `@Input` y `@Output`.
+- Servicio compartido `CountriesService` para API, cache, favoritos y estado.
+- Senales de Angular para `loading`, errores, favoritos y busquedas recientes.
+- Operadores de RxJS: `map`, `mergeMap`, `debounceTime`, `distinctUntilChanged`,
+  `catchError`, `finalize` y `shareReplay`.
+- Query params en busquedas y filtro de region.
+- Tailwind CSS y DaisyUI para la interfaz.
 
-## Code scaffolding
+## Rutas principales
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- `/countries/home`
+- `/countries/by-country?q=mexico`
+- `/countries/by-capital?q=madrid`
+- `/countries/by-region?region=americas`
+- `/countries/country/MEX`
+- `/countries/favorites`
+- `/countries/favorites/help`
 
-```bash
-ng generate component component-name
-```
+## Comandos
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+Instalar dependencias:
 
 ```bash
-ng e2e
+npm install
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Ejecutar en desarrollo:
 
-## Additional Resources
+```bash
+npm start
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Compilar produccion:
+
+```bash
+npm run build
+```
+
+La salida de produccion queda en:
+
+```text
+dist/country-spa/browser
+```
+
+## API
+
+La aplicacion consume:
+
+```text
+https://api.restcountries.com/countries/v5
+```
+
+REST Countries v5 requiere API key para consultar datos reales desde frontend. La app
+intenta consumir esa API y, si no hay credenciales o el navegador bloquea la peticion,
+usa el JSON local de respaldo.
+
+Para probar con una key real, se puede guardar en el navegador:
+
+```js
+localStorage.setItem('country-spa-api-key', 'TU_API_KEY')
+```
+
+Rutas/consultas usadas:
+
+- `/name?q={name}`
+- `?capitals.name={capital}`
+- `?region={region}`
+- `/codes.alpha_3/{code}`
+
+## Puntos para mostrar en el video
+
+- Entrar al home y explicar que `countries` carga de forma perezosa.
+- Buscar un pais y mostrar que el texto queda en la URL como `q`.
+- Buscar por capital y explicar el debounce del input.
+- Filtrar por region y compartir la URL con `region`.
+- Abrir el detalle de un pais.
+- Guardar y quitar favoritos.
+- Abrir `/countries/favorites/help` para mostrar la ruta anidada.
+- Ejecutar `npm run build` y mostrar que se genera `ngsw-worker.js`.

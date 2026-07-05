@@ -1,0 +1,40 @@
+<section class="space-y-6">
+  <div>
+    <h1 class="section-title">Buscar por region</h1>
+    <p class="muted-text">
+      La region seleccionada se conserva en la URL para poder compartir la vista filtrada.
+    </p>
+  </div>
+
+  <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+    @for (region of regions; track region.value) {
+      <button
+        type="button"
+        class="rounded-lg border bg-white p-4 text-left shadow-sm transition hover:border-primary hover:shadow-md"
+        [class.border-primary]="selectedRegion() === region.value"
+        [class.ring-2]="selectedRegion() === region.value"
+        [class.ring-primary]="selectedRegion() === region.value"
+        (click)="selectRegion(region.value)"
+      >
+        <span class="block font-bold text-neutral">{{ region.label }}</span>
+        <span class="mt-1 block text-sm text-slate-500">{{ region.description }}</span>
+      </button>
+    }
+  </div>
+
+  @if (countriesService.errorMessage(); as message) {
+    <div class="alert alert-warning">
+      <span>{{ message }}</span>
+    </div>
+  }
+
+  <app-country-list
+    [countries]="countries()"
+    [loading]="countriesService.loading()"
+    [favoriteCodes]="countriesService.favoriteCodes()"
+    [emptyMessage]="
+      selectedRegion() ? 'No hay paises para esta region.' : 'Selecciona una region para comenzar.'
+    "
+    (favoriteToggled)="toggleFavorite($event)"
+  />
+</section>
