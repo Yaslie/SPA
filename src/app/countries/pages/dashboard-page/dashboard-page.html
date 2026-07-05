@@ -12,6 +12,19 @@
       <a routerLink="/countries/by-country" class="btn btn-primary">Buscar pais</a>
       <a routerLink="/countries/by-region" class="btn btn-outline">Ver regiones</a>
     </div>
+
+    @if (countriesService.recentSearches().length > 0) {
+      <div>
+        <p class="mb-2 text-sm font-semibold text-slate-500">Tus busquedas recientes</p>
+        <div class="flex flex-wrap gap-2">
+          @for (recent of countriesService.recentSearches(); track recent) {
+            <a class="badge badge-outline" [routerLink]="['/countries/by-country']" [queryParams]="{ q: recent }">
+              {{ recent }}
+            </a>
+          }
+        </div>
+      </div>
+    }
   </div>
 
   <div class="stats stats-vertical shadow lg:stats-horizontal">
@@ -29,6 +42,11 @@
       <div class="stat-title">Estado</div>
       <div class="stat-value text-accent">RxJS</div>
       <div class="stat-desc">Senales y cache</div>
+    </div>
+    <div class="stat">
+      <div class="stat-title">Favoritos</div>
+      <div class="stat-value text-warning">{{ countriesService.favorites().length }}</div>
+      <div class="stat-desc">Guardados localmente</div>
     </div>
   </div>
 </section>

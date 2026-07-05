@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { CountryList } from './components/country-list/country-list';
+import { SearchBox } from './components/search-box/search-box';
 import { CountriesRoutingModule } from './countries-routing-module';
 import { CountryDetailPage } from './pages/country-detail-page/country-detail-page';
 import { CountriesLayout } from './pages/countries-layout/countries-layout';
@@ -13,6 +15,8 @@ import { SearchPage } from './pages/search-page/search-page';
 
 @NgModule({
   declarations: [
+    SearchBox,
+    CountryList,
     CountriesLayout,
     DashboardPage,
     SearchPage,

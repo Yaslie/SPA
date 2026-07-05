@@ -8,4 +8,11 @@
   </div>
 
   <router-outlet />
+
+  <app-country-list
+    [countries]="countriesService.favorites()"
+    [favoriteCodes]="countriesService.favoriteCodes()"
+    emptyMessage="Todavia no guardas paises favoritos."
+    (favoriteToggled)="toggleFavorite($event)"
+  />
 </section>

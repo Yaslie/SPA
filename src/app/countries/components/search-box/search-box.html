@@ -1,0 +1,28 @@
+<form class="join w-full" (ngSubmit)="submitSearch()">
+  <label class="input join-item input-bordered flex min-h-12 flex-1 items-center gap-3">
+    <span class="hidden text-sm font-semibold text-slate-500 sm:inline">{{ label }}</span>
+    <input
+      class="grow"
+      type="search"
+      autocomplete="off"
+      [formControl]="searchControl"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+    />
+  </label>
+
+  @if (searchControl.value) {
+    <button
+      class="btn btn-outline join-item min-h-12"
+      type="button"
+      aria-label="Limpiar busqueda"
+      (click)="clearSearch()"
+    >
+      x
+    </button>
+  }
+
+  <button class="btn btn-primary join-item min-h-12" type="submit" [disabled]="disabled">
+    Buscar
+  </button>
+</form>
