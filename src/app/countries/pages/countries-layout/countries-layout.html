@@ -1,0 +1,43 @@
+<div class="min-h-screen bg-base-100 text-slate-900" data-theme="country">
+  <header class="sticky top-0 z-30 border-b border-base-300 bg-base-100/95 backdrop-blur">
+    <nav class="navbar page-shell py-3">
+      <div class="flex-1">
+        <a routerLink="/countries/home" class="btn btn-ghost px-2 text-xl font-bold text-primary">
+          Country SPA
+        </a>
+      </div>
+
+      <div class="hidden gap-2 lg:flex">
+        @for (link of links; track link.path) {
+          <a
+            class="btn btn-ghost btn-sm"
+            [routerLink]="link.path"
+            routerLinkActive="btn-primary text-white"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            {{ link.label }}
+          </a>
+        }
+      </div>
+
+      <div class="dropdown dropdown-end lg:hidden">
+        <button type="button" class="btn btn-ghost btn-square" aria-label="Abrir menu">
+          <span class="text-2xl leading-none">=</span>
+        </button>
+        <ul class="menu dropdown-content z-40 mt-3 w-56 rounded-box bg-base-100 p-2 shadow">
+          @for (link of links; track link.path) {
+            <li>
+              <a [routerLink]="link.path" routerLinkActive="active">
+                {{ link.label }}
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page-shell">
+    <router-outlet />
+  </main>
+</div>
