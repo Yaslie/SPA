@@ -12,7 +12,7 @@ export class CountriesService {
   private readonly apiUrl = 'https://api.restcountries.com/countries/v5';
   private readonly cache = new Map<string, Observable<Country[]>>();
   private readonly fallbackCountries$ = this.http
-    .get<Country[]>('/data/countries.json')
+    .get<Country[]>('data/countries.json')
     .pipe(shareReplay(1));
 
   readonly loading = signal(false);
