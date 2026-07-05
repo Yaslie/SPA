@@ -16,34 +16,48 @@ export interface Country {
   mapUrl: string;
 }
 
-export interface RestCountry {
-  name: {
-    common: string;
-    official: string;
+export interface RestCountriesV5Response {
+  data: {
+    _demo?: {
+      message: string;
+      signup_url: string;
+    };
+    objects: RestCountryV5[];
   };
-  cca2: string;
-  cca3: string;
-  capital?: string[];
+}
+
+export interface RestCountryV5 {
+  names?: {
+    common?: string;
+    official?: string;
+  };
+  codes?: {
+    alpha_2?: string;
+    alpha_3?: string;
+  };
+  capitals?: {
+    name?: string;
+  }[];
   region: string;
   subregion?: string;
   population: number;
-  flags: {
-    png: string;
-    svg: string;
-    alt?: string;
+  flag?: {
+    url_png?: string;
+    url_svg?: string;
   };
-  coatOfArms?: {
-    png?: string;
-    svg?: string;
+  coat_of_arms?: {
+    url_png?: string;
+    url_svg?: string;
   };
-  languages?: Record<string, string>;
-  currencies?: Record<string, { name: string; symbol?: string }>;
+  languages?: {
+    name?: string;
+  }[];
+  currencies?: {
+    name?: string;
+    symbol?: string;
+  }[];
   timezones?: string[];
   borders?: string[];
-  maps: {
-    googleMaps: string;
-    openStreetMaps: string;
-  };
 }
 
 export type SearchMode = 'country' | 'capital';

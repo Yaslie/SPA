@@ -43,6 +43,10 @@ export class SearchBox implements OnInit, OnChanges {
     if (changes['value'] && this.value !== this.searchControl.value) {
       this.searchControl.setValue(this.value, { emitEvent: false });
     }
+
+    if (changes['disabled']) {
+      this.syncDisabledState();
+    }
   }
 
   protected submitSearch(): void {
@@ -52,5 +56,15 @@ export class SearchBox implements OnInit, OnChanges {
   protected clearSearch(): void {
     this.searchControl.setValue('');
     this.search.emit('');
+  }
+
+  private syncDisabledState(): void {
+    if (this.disabled && this.searchControl.enabled) {
+      this.searchControl.disable({ emitEvent: false });
+    }
+
+    if (!this.disabled && this.searchControl.disabled) {
+      this.searchControl.enable({ emitEvent: false });
+    }
   }
 }

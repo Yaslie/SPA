@@ -13,6 +13,7 @@ DaisyUI, RxJS, cache y PWA.
 - Favoritos guardados en `localStorage`.
 - Busquedas recientes guardadas en el navegador.
 - Cache en peticiones HTTP para evitar repetir llamadas iguales.
+- Respaldo local en `public/data/countries.json` para que la demo funcione sin API key.
 - Pantalla de favoritos con ruta hija `/countries/favorites/help`.
 - Aplicacion configurada como PWA con manifest y service worker.
 
@@ -69,15 +70,25 @@ dist/country-spa/browser
 La aplicacion consume:
 
 ```text
-https://restcountries.com/v3.1
+https://api.restcountries.com/countries/v5
 ```
 
-Endpoints usados:
+REST Countries v5 requiere API key para consultar datos reales desde frontend. La app
+intenta consumir esa API y, si no hay credenciales o el navegador bloquea la peticion,
+usa el JSON local de respaldo.
 
-- `/name/{name}`
-- `/capital/{capital}`
-- `/region/{region}`
-- `/alpha/{code}`
+Para probar con una key real, se puede guardar en el navegador:
+
+```js
+localStorage.setItem('country-spa-api-key', 'TU_API_KEY')
+```
+
+Rutas/consultas usadas:
+
+- `/name?q={name}`
+- `?capitals.name={capital}`
+- `?region={region}`
+- `/codes.alpha_3/{code}`
 
 ## Puntos para mostrar en el video
 
