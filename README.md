@@ -100,3 +100,18 @@ Rutas/consultas usadas:
 - Guardar y quitar favoritos.
 - Abrir `/countries/favorites/help` para mostrar la ruta anidada.
 - Ejecutar `npm run build` y mostrar que se genera `ngsw-worker.js`.
+
+## Despliegue PWA
+
+El repositorio incluye un workflow en `.github/workflows/deploy-pages.yml` para
+publicar automaticamente la app en GitHub Pages cuando se actualiza `main`.
+
+URL esperada:
+
+```text
+https://yaslie.github.io/SPA/
+```
+
+El workflow compila Angular con `--base-href /SPA/`, publica la carpeta
+`dist/country-spa/browser` y copia `index.html` como `404.html` para conservar las
+rutas internas de la SPA.
